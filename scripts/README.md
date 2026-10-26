@@ -194,6 +194,6 @@ The output files support three complementary analyses:
 - **Genomic feature prioritization:** compare feature importance across runs to identify features that repeatedly contribute to the model.
 - **Sample-level evaluation:** examine predicted and observed classes to identify patterns in misclassification and assess prediction consistency.
 
-For antimicrobial resistance studies, these results can help prioritize candidate genomic determinants for further investigation and support the interpretation of genotype–phenotype relationships. Feature importance is most informative when considered alongside biological knowledge, genomic context, and independent evidence.
+In antimicrobial resistance studies, these results can help you identify genomic features worth investigating further and better understand the links between genotype and phenotype. Combining feature importance with biological knowledge and other supporting evidence can help you make the most of these findings.
 
-The workflow can be adapted to different organisms, antimicrobial agents, and genomic feature sets, provided that the input data follow the required format and the target phenotype is encoded consistently.
+Feel free to adapt the workflow to your own organism, antimicrobial agent, or genomic features, as long as your input data follow the required format and the target phenotype is consistently encoded.
