@@ -1,2 +1,2 @@
-# antimicrobial-resistance-prediction
+# AMR-prediction
 Machine learning approaches for antimicrobial resistance prediction using genomic features.
