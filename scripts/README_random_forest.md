@@ -6,11 +6,30 @@ The `random_forest.py` script predicts antimicrobial resistance phenotypes from 
 
 - **Binary classification:** predicts susceptible (`0`) or resistant (`1`) phenotypes.
 - **Repeated evaluation:** assesses performance across different train/test partitions.
-- **Hyperparameter optimization:** uses `RandomizedSearchCV` with stratified cross-validation, optimizing the F1 score of the resistant class.
+- **Hyperparameter optimization:** uses `RandomizedSearchCV` with stratified cross-validation, optimizing the F1-score of the resistant class.
 - **Performance assessment:** calculates accuracy, precision, recall, and F1-score for both classes.
 - **Feature importance:** records feature importance for each run.
 
-## 1. Configurable Parameters
+## 1. Input Data
+
+The script processes all CSV files in the `data/` directory independently. Each file must contain the following columns:
+
+| Column | Description |
+|---|---|
+| `sample_id` | Unique identifier for each sample or isolate. |
+| `outcome` | Binary resistance phenotype: `0` = susceptible, `1` = resistant. |
+| Feature columns | Numeric genomic predictors, such as gene presence/absence profiles or k-mer frequencies. |
+
+**Input requirements**
+
+- Both `sample_id` and `outcome` must be present.
+- `outcome` must contain integer-compatible binary labels (`0` and `1`).
+- All feature columns must contain numeric values.
+- Rows with missing `sample_id` or `outcome` values are removed automatically. Missing feature values are not imputed.
+- Both classes must have enough samples to support the train/test split and cross-validation settings.
+- `sample_id` is used for identification, not as a predictor. All columns other than `sample_id` and `outcome` are treated as features.
+
+## 2. Configurable Parameters
 
 The main settings can be modified directly in `random_forest.py`.
 
@@ -45,13 +64,13 @@ The search space is defined by `param_dist`:
 
 The best-performing model is then used to predict the resistance classes of the test samples.
 
-## 2. Output Files
+## 3. Output Files
 
 All output files are saved directly in the `results/` directory. Filenames are based on the input dataset name, without its `.csv` extension.
 
 For each dataset, the script generates three CSV files.
 
-### 2.1. Global Performance Metrics
+### 3.1. Global Performance Metrics
 
 **Filename:** `accuracy_global_<dataset_name>.csv`
 
@@ -70,7 +89,7 @@ One row is generated for each run.
 
 Precision, recall, and F1-score are calculated separately for each class. Undefined class-specific metrics are set to zero.
 
-### 2.2. Feature Importance
+### 3.2. Feature Importance
 
 **Filename:** `feature_importance_<dataset_name>.csv`
 
@@ -86,7 +105,7 @@ Feature importance values represent the relative contribution of each feature to
 
 Comparing feature importance across runs can help identify genomic features that consistently contribute to classification and assess the stability of their relative importance.
 
-### 2.3. Predictions per Sample
+### 3.3. Predictions per Sample
 
 **Filename:** `prediction_per_sample_<dataset_name>.csv`
 
