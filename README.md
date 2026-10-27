@@ -8,7 +8,7 @@ This repository contains two machine learning approaches for predicting antimicr
 - **Random Forest (RF):** a classification approach that predicts whether an isolate is susceptible or resistant to a given antimicrobial.
 - **XGBoost:** a regression approach that predicts the quantitative minimum inhibitory concentration (MIC) of an isolate.
 
-Both scripts use genomic features as predictors and evaluate model performance using repeated train/test splits. They are designed to process datasets containing sample identifiers, antimicrobial resistance outcomes, and genomic features.
+Both scripts use genomic features as predictors and evaluate model performance using repeated train/test splits.
 
 The two approaches address different prediction tasks and should be selected according to the type of outcome available.
 
