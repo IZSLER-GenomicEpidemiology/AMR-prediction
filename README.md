@@ -52,16 +52,12 @@ The following columns are required:
 
 - `sample_id`: unique identifier for each isolate.
 - `outcome`: the target variable to be predicted.
-- All remaining columns: genomic features used as predictors.
+- All remaining columns: numerically encoded genomic features, 
 
 The meaning and encoding of `outcome` depend on the selected model:
 
 - For Random Forest, `outcome` must represent a binary phenotype: `0` for susceptible and `1` for resistant.
 - For XGBoost, `outcome` must contain numeric MIC values expressed on a log2 scale. A difference of one unit corresponds to one twofold dilution.
-
-Genomic features should be encoded numerically, for example as binary presence/absence variables.
-
-Make sure that the input data are appropriately prepared for the selected prediction task.
 
 ## Installation
 
