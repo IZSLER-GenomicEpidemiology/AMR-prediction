@@ -1,8 +1,6 @@
 # Genotype-Based Antimicrobial Resistance Prediction
 
-**From microbial genomes to antimicrobial resistance predictions.**
-
-This repository provides machine learning workflows to explore the relationship between microbial genomic features and antimicrobial resistance (AMR). It includes two complementary approaches to predict resistance phenotypes and investigate the genomic features that contribute to model predictions.
+This repository provides two complementary machine learning approaches to predict antimicrobial resistance (AMR) phenotypes from microbial genomic features and identify the genomic features contributing to model predictions.
 
 ## Overview
 
