@@ -10,7 +10,29 @@ The `xgboost.py` script predicts quantitative minimum inhibitory concentration (
 - **Performance assessment:** calculates prediction accuracy within ±1 MIC dilution and the coefficient of determination (R²).
 - **Feature importance:** records feature importance for each run.
 
-## 1. Configurable Parameters
+## 1. Input Data
+
+The script processes all CSV files in the `data/` directory independently. Each file must contain the following columns:
+
+| Column | Description |
+|---|---|
+| `sample_id` | Unique identifier for each sample or isolate. |
+| `outcome` | Quantitative MIC value expressed on a log2 scale. |
+| Feature columns | Numeric genomic predictors, such as gene presence/absence profiles or k-mer frequencies. |
+
+**Input requirements**
+
+- Both `sample_id` and `outcome` must be present.
+- `outcome` must contain numeric MIC values expressed on a log2 scale.
+- All columns other than `sample_id` and `outcome` are treated as genomic features and must contain numeric values.
+- Rows with missing values or non-numeric MIC values are excluded during preprocessing.
+- MIC values occurring only once in the dataset are excluded.
+- Each dataset must contain enough observations to support the train/test split and cross-validation settings.
+- `sample_id` is used for sample identification, not as a predictor.
+
+A one-unit difference on the log2 MIC scale corresponds to a twofold difference in MIC, equivalent to one twofold dilution step.
+
+## 2. Configurable Parameters
 
 The main settings can be modified directly in `xgboost.py`.
 
@@ -53,13 +75,13 @@ The grid search is performed using `GridSearchCV`, exploring the following hyper
 
 Five-fold cross-validation and R² are used to select the best model.
 
-## 2. Output Files
+## 3. Output Files
 
 All output files are saved directly in the `results/` directory. Filenames are based on the input dataset name, without its `.csv` extension.
 
 For each dataset, the script generates four CSV files.
 
-### 2.1. Global Performance Metrics
+### 3.1. Global Performance Metrics
 
 **Filename:** `accuracy_global_<dataset_name>.csv`
 
@@ -73,7 +95,7 @@ One row is generated for each run.
 
 The `accuracy_1_diluition` column measures agreement within ±1 MIC dilution and is not equivalent to conventional classification accuracy.
 
-### 2.2. Predictions per Sample
+### 3.2. Predictions per Sample
 
 **Filename:** `prediction_per_sample_<dataset_name>.csv`
 
@@ -83,13 +105,13 @@ One row is generated for each test sample in each run.
 |---|---|
 | `run` | Run number. |
 | `sample_id` | Identifier of the test sample. |
-| `real_mic` | Observed MIC value. |
+| `real_mic` | Observed MIC value on the log2 scale. |
 | `predicted_mic` | MIC value predicted by XGBoost. |
 | `agreement` | `1` if the predicted MIC differs from the observed MIC by no more than one log2 unit; otherwise `0`. |
 
 A sample may appear in multiple runs because the test sets are generated independently.
 
-### 2.3. Accuracy per MIC Dilution
+### 3.3. Accuracy per MIC Dilution
 
 **Filename:** `accuracy_per_dilution_<dataset_name>.csv`
 
@@ -105,7 +127,7 @@ This file summarizes prediction performance for each observed MIC value in each 
 
 Accuracy is calculated from individual predictions before aggregation by observed MIC. The `predicted_mic` column reports the mean predicted value for each group and is not used to calculate the group's accuracy.
 
-### 2.4. Feature Importance
+### 3.4. Feature Importance
 
 **Filename:** `feature_importance_<dataset_name>.csv`
 
@@ -117,4 +139,4 @@ Feature importance is saved in **long format**, with one row per feature per run
 | `feature` | Name of the genomic feature. |
 | `importance` | Feature importance score reported by the fitted XGBoost model. |
 
-Comparing feature importance across runs can help identify genomic features that consistently contribute to model predictions and assess the stability of their relative importance.
+Comparing feature importance across runs can help identify genomic features that consistently contribute to model predictions and assess the stability of their relative importance. Feature importance alone does not establish a causal relationship between a genomic feature and antimicrobial resistance.
