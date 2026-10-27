@@ -42,8 +42,6 @@ The main settings can be modified directly in `xgboost.py`.
 
 The train/test split is stratified by MIC value to preserve the distribution of observed target values as far as the available sample counts allow.
 
-Increasing `n_runs` provides a broader assessment of variability across data splits, at the cost of additional computational time.
-
 ### Factorial design
 
 The factorial design evaluates combinations of the following hyperparameters:
@@ -54,9 +52,7 @@ The factorial design evaluates combinations of the following hyperparameters:
 | `colsample_bytree` | Fraction of features sampled for each tree. |
 | `subsample` | Fraction of training samples used to build each tree. |
 
-The combinations are evaluated using five-fold cross-validation and R² as the scoring metric. The base model uses `n_estimators = 100` and `learning_rate = 0.1`.
-
-The best-performing combination determines the `colsample_bytree` and `subsample` values used in the subsequent grid search.
+The combinations are evaluated using five-fold cross-validation and R² as the scoring metric. 
 
 ### Grid search
 
@@ -90,8 +86,6 @@ One row is generated for each run.
 | `accuracy_1_diluition` | Proportion of test samples whose predicted MIC differs from the observed MIC by no more than one log2 unit. |
 | `R2` | Coefficient of determination. |
 
-The `accuracy_1_diluition` column measures agreement within ±1 MIC dilution and is not equivalent to conventional classification accuracy.
-
 ### 3.2. Predictions per Sample
 
 **Filename:** `prediction_per_sample_<dataset_name>.csv`
@@ -105,8 +99,6 @@ One row is generated for each test sample in each run.
 | `real_mic` | Observed MIC value on the log2 scale. |
 | `predicted_mic` | MIC value predicted by XGBoost. |
 | `agreement` | `1` if the prediction is within ±1 log2 unit of the observed MIC; otherwise `0`. |
-
-A sample may appear in multiple runs because the test sets are generated independently.
 
 ### 3.3. Accuracy per MIC Dilution
 
@@ -122,8 +114,6 @@ Summarizes prediction performance for each observed MIC value in each run.
 | `n_samples` | Number of test samples in the group. |
 | `accuracy_1_diluition` | Proportion of samples predicted within ±1 MIC dilution. |
 
-Accuracy is calculated from individual predictions before aggregation by observed MIC.
-
 ### 3.4. Feature Importance
 
 **Filename:** `feature_importance_<dataset_name>.csv`
@@ -136,4 +126,3 @@ Feature importance is saved in **long format**, with one row per feature per run
 | `feature` | Name of the genomic feature. |
 | `importance` | Feature importance score reported by the fitted XGBoost model. |
 
-Comparing feature importance across runs can help identify features that consistently contribute to predictions. Feature importance alone does not establish a causal relationship with antimicrobial resistance.
