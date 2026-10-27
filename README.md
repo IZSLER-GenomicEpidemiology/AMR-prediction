@@ -110,7 +110,7 @@ The `<dataset>` placeholder corresponds to the input CSV filename without its ex
 
 ## Notes
 
-- Both scripts evaluate predictions on held-out test sets rather than on the training data.
+- Both scripts evaluate predictions on held-out test sets across repeated runs.
 - The reported performance can vary across runs because the train/test split and model optimization involve randomization.
 - Feature importance scores indicate the contribution assigned to predictors by the fitted model; they should not automatically be interpreted as evidence of a causal relationship.
 - The `results/` directory must exist before execution.
