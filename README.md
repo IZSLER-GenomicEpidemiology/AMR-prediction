@@ -35,8 +35,8 @@ The workflows use genomic data and antimicrobial resistance measurements to eval
 
 ## Recommended Use
 
-- **Choose the model according to your objective.** Use Random Forest to classify isolates as susceptible or resistant, and XGBoost when quantitative MIC prediction is required.
-- **Set parameters carefully.** Consider available computational resources, particularly memory, processing time, and computational power, when configuring the number of runs, cross-validation folds, and hyperparameter search settings. More extensive searches may provide a broader evaluation but require additional computational resources.
+- **Choose the model according to your objective.** Use Random Forest to classify isolates as susceptible or resistant, and XGBoost to predict quantitative MIC values.
+- **Set parameters carefully.** Consider available computational resources when configuring search settings. More extensive searches may improve model evaluation but increase computational costs.
 - **Assess performance across repeated runs.** Results can vary with train/test partitions and hyperparameter optimization, so consider this variability when evaluating model performance.
 - **Explore feature importance with care.** Features that repeatedly contribute to predictions may be useful candidates for further investigation, but feature importance alone does not demonstrate a causal relationship with antimicrobial resistance.
 - **Prepare datasets consistently.** Use appropriate genomic feature encoding and ensure that the outcome is compatible with the selected model.
