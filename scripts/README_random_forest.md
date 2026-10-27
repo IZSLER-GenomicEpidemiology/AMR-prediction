@@ -44,8 +44,6 @@ The main settings can be modified directly in `random_forest.py`.
 
 The train/test split is stratified by `outcome`, preserving the approximate class proportions in the training and test sets.
 
-Increasing `n_runs` provides a broader assessment of variability across data splits, while increasing `n_iter_search` explores more hyperparameter combinations. Increasing `n_splits_cv` changes the cross-validation configuration and increases computational cost.
-
 ### Hyperparameter search space
 
 The search space is defined by `param_dist`:
