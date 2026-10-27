@@ -85,8 +85,6 @@ One row is generated for each run.
 | `R_recall` | Recall for the resistant class (`1`). |
 | `R_F1_score` | F1-score for the resistant class (`1`). |
 
-Precision, recall, and F1-score are calculated separately for each class. Undefined class-specific metrics are set to zero.
-
 ### 3.2. Feature Importance
 
 **Filename:** `feature_importance_<dataset_name>.csv`
@@ -99,9 +97,6 @@ Feature importance is saved in **long format**, with one row per feature per run
 | `feature` | Name of the genomic feature. |
 | `importance` | Feature importance score reported by the fitted Random Forest. |
 
-Feature importance values represent the relative contribution of each feature to impurity reduction in the fitted model. They sum to approximately 1 within each run.
-
-Comparing feature importance across runs can help identify genomic features that consistently contribute to classification and assess the stability of their relative importance.
 
 ### 3.3. Predictions per Sample
 
@@ -117,4 +112,3 @@ One row is generated for each test sample in each run.
 | `predicted_class` | Class predicted by the fitted Random Forest. |
 | `agreement` | `1` if the predicted class matches the observed class; otherwise `0`. |
 
-A sample may appear in multiple runs because the test sets are generated independently. The `agreement` column allows classification performance to be examined at the sample level.
