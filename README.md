@@ -31,9 +31,7 @@ The workflows use genomic data and antimicrobial resistance measurements to eval
 
 **Inputs:** CSV datasets must be placed in the `data/` directory. Each dataset contains isolate identifiers, an antimicrobial resistance outcome, and genomic features. Depending on the selected model, the outcome represents either a binary susceptible/resistant phenotype or a quantitative MIC value.
 
-**Outputs:** the scripts generate model performance metrics, predictions for individual test samples, and feature importance scores. XGBoost also provides a summary of prediction accuracy for each observed MIC value.
-
-All results are saved in the `results/` directory, allowing users to compare model performance across repeated runs and investigate predictions at the sample level.
+**Outputs:** the scripts generate model performance metrics, predictions for individual test samples, and feature importance scores. XGBoost also provides a summary of prediction accuracy for each observed MIC value. All results are saved in the `results/` directory.
 
 ## Recommended Use
 
