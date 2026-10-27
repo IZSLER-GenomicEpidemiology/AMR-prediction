@@ -11,8 +11,6 @@ The repository includes two models, designed for different prediction goals:
 - **Random Forest:** predicts whether a microbial isolate is susceptible or resistant to a given antimicrobial.
 - **XGBoost:** predicts the minimum inhibitory concentration (MIC), providing a quantitative estimate of antimicrobial susceptibility.
 
-Together, these approaches allow users to investigate AMR from complementary perspectives, combining phenotype prediction with the analysis of genomic features.
-
 ## Choosing the Right Approach
 
 | | Random Forest | XGBoost |
