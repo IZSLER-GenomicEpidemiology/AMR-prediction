@@ -59,11 +59,14 @@ repository/
 
 ## Installation
 
+Make sure Python is installed, then clone or download this repository and navigate to its root directory.
+
 Install the required Python packages using:
 
 ```bash
 pip install -r requirements.txt
 ```
+
 
 ## Running the Scripts
 
@@ -81,6 +84,6 @@ python scripts/random_forest.py
 python scripts/xgboost.py
 ```
 
-Each script automatically processes the CSV files in `data/` and saves the corresponding results in `results/`.
+Each script automatically processes the CSV files in `data/` and saves the corresponding results in `results/`. Make sure both directories exist and that `results/` is available before running the scripts.
 
 Before running either workflow, consult its dedicated README for the required input format and model-specific settings.
