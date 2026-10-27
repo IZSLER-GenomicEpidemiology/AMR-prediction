@@ -1,6 +1,6 @@
 # Random Forest for Antimicrobial Resistance Classification
 
-The `random_forest.py` script predicts antimicrobial resistance phenotypes from genomic features using Random Forest classification. It evaluates model performance across repeated train/test splits, optimizes hyperparameters through cross-validation, and records feature importance to support the interpretation of genomic predictors.
+The `random_forest.py` script predicts antimicrobial resistance phenotypes from genomic features using Random Forest classification.
 
 ## Features
 
