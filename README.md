@@ -1,31 +1,50 @@
 # Genotype-Based Antimicrobial Resistance Prediction
-Exploring how machine learning can help us understand and predict antimicrobial resistance from microbial genomic data.
+
+**From microbial genomes to antimicrobial resistance predictions.**
+
+This repository provides machine learning workflows to explore the relationship between microbial genomic features and antimicrobial resistance (AMR). It includes two complementary approaches to predict resistance phenotypes and investigate the genomic features that contribute to model predictions.
 
 ## Overview
 
-This repository contains two machine learning approaches for predicting antimicrobial resistance (AMR) from genomic features:
+The repository includes two models, designed for different prediction goals:
 
-- **Random Forest (RF):** a classification approach that predicts whether an isolate is susceptible or resistant to a given antimicrobial.
-- **XGBoost:** a regression approach that predicts the quantitative minimum inhibitory concentration (MIC) of an isolate.
+- **Random Forest:** predicts whether a microbial isolate is susceptible or resistant to a given antimicrobial.
+- **XGBoost:** predicts the minimum inhibitory concentration (MIC), providing a quantitative estimate of antimicrobial susceptibility.
 
-Both scripts use genomic features as predictors and evaluate model performance using repeated train/test splits.
+Together, these approaches allow users to investigate AMR from complementary perspectives, combining phenotype prediction with the analysis of genomic features.
 
-The two approaches address different prediction tasks and should be selected according to the type of outcome available.
+## Choosing the Right Approach
 
-## Prediction Approaches
-
-| Feature | Random Forest | XGBoost |
+| | Random Forest | XGBoost |
 |---|---|---|
-| Task | Binary classification | Regression |
-| Target variable | Binary resistance phenotype | Quantitative MIC |
-| Outcome encoding | 0 = susceptible, 1 = resistant | Numeric MIC expressed on a log2 scale |
-| Model evaluation | Accuracy, precision, recall, and F1-score | Accuracy within ±1 MIC dilution and R² |
-| Hyperparameter optimization | RandomizedSearchCV | Factorial design and GridSearchCV |
+| **Goal** | Classify isolates as susceptible or resistant | Predict quantitative MIC values |
+| **Prediction** | Susceptible (0) or resistant (1) | MIC on a log2 scale |
+| **Performance evaluation** | Accuracy, precision, recall, and F1-score | Accuracy within ±1 MIC dilution and R² |
+| **Hyperparameter optimization** | Randomized search with cross-validation | Factorial design and grid search |
 
-For more details about each implementation, see the dedicated documentation:
+For implementation details, configurable parameters, and output descriptions, see the dedicated documentation:
 
 - [Random Forest documentation](scripts/README_random_forest.md)
 - [XGBoost documentation](scripts/README_xgboost.md)
+
+## Inputs and Outputs
+
+The workflows use genomic data and antimicrobial resistance measurements to evaluate predictive performance and explore the contribution of genomic features.
+
+**Inputs:** CSV datasets must be placed in the `data/` directory. Each dataset contains isolate identifiers, an antimicrobial resistance outcome, and genomic features. Depending on the selected model, the outcome represents either a binary susceptible/resistant phenotype or a quantitative MIC value.
+
+**Outputs:** the scripts generate model performance metrics, predictions for individual test samples, and feature importance scores. XGBoost also provides a summary of prediction accuracy for each observed MIC value.
+
+All results are saved in the `results/` directory, allowing users to compare model performance across repeated runs and investigate predictions at the sample level.
+
+## Recommended Use
+
+- **Choose the model according to your objective.** Use Random Forest to classify isolates as susceptible or resistant, and XGBoost when quantitative MIC prediction is required.
+- **Set parameters carefully.** Consider available computational resources, particularly memory, processing time, and computational power, when configuring the number of runs, cross-validation folds, and hyperparameter search settings. More extensive searches may provide a broader evaluation but require additional computational resources.
+- **Assess performance across repeated runs.** Results can vary with train/test partitions and hyperparameter optimization, so consider this variability when evaluating model performance.
+- **Explore feature importance with care.** Features that repeatedly contribute to predictions may be useful candidates for further investigation, but feature importance alone does not demonstrate a causal relationship with antimicrobial resistance.
+- **Prepare datasets consistently.** Use appropriate genomic feature encoding and ensure that the outcome is compatible with the selected model.
+- **Keep your results organized.** The scripts write their output files to `results/`. Existing files with matching names may be overwritten when the scripts are run again, so preserve any results you want to retain.
 
 ## Repository Structure
 
@@ -42,23 +61,6 @@ repository/
 └── results/
 ```
 
-## Input Data
-
-Input datasets must be provided as CSV files and placed directly in the `data/` directory.
-
-Each CSV file represents a dataset to be processed independently.
-
-The following columns are required:
-
-- `sample_id`: unique identifier for each isolate.
-- `outcome`: the target variable to be predicted.
-- All remaining columns: numerically encoded genomic features, 
-
-The meaning and encoding of `outcome` depend on the selected model:
-
-- For Random Forest, `outcome` must represent a binary phenotype: `0` for susceptible and `1` for resistant.
-- For XGBoost, `outcome` must contain numeric MIC values expressed on a log2 scale. A difference of one unit corresponds to one twofold dilution.
-
 ## Installation
 
 Install the required Python packages using:
@@ -69,45 +71,20 @@ pip install -r requirements.txt
 
 ## Running the Scripts
 
-Run the scripts from the repository root:
+Run the commands below from the repository root.
+
+**Random Forest**
 
 ```bash
 python scripts/random_forest.py
 ```
 
+**XGBoost**
+
 ```bash
 python scripts/xgboost.py
 ```
 
-Each script automatically identifies and processes the CSV files in `data/`.
+Each script automatically processes the CSV files in `data/` and saves the corresponding results in `results/`.
 
-The scripts use different model-specific evaluation procedures and parameters. Consult the dedicated documentation before changing these settings.
-
-## Output Files
-
-All results are saved directly in the `results/` directory.
-
-For each input dataset, the scripts generate the following results.
-
-### Random Forest
-
-- `accuracy_global_<dataset>.csv`: classification performance metrics for each run.
-- `prediction_per_sample_<dataset>.csv`: real and predicted classes for each test sample, including an agreement indicator.
-- `feature_importance_<dataset>.csv`: feature importance scores for each run.
-
-### XGBoost
-
-- `accuracy_global_<dataset>.csv`: global prediction performance for each run.
-- `prediction_per_sample_<dataset>.csv`: real and predicted MIC values for each test sample, including an agreement indicator.
-- `accuracy_per_dilution_<dataset>.csv`: prediction performance grouped by real MIC value for each run.
-- `feature_importance_<dataset>.csv`: feature importance scores for each run.
-
-The `<dataset>` placeholder corresponds to the input CSV filename without its extension.
-
-## Notes
-
-- Both scripts evaluate predictions on held-out test sets across repeated runs.
-- The reported performance can vary across runs because the train/test split and model optimization involve randomization.
-- Feature importance scores indicate the contribution assigned to predictors by the fitted model; they should not automatically be interpreted as evidence of a causal relationship.
-- The `results/` directory must exist before execution.
-- Output files with the same names may be overwritten when the scripts are run again on the same datasets.
+Before running either workflow, consult its dedicated README for the required input format and model-specific settings.
