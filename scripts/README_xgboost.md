@@ -1,6 +1,6 @@
 # XGBoost for Quantitative MIC Prediction
 
-The `xgboost.py` script predicts quantitative minimum inhibitory concentration (MIC) values from genomic features using XGBoost regression. It evaluates model performance across repeated train/test splits, optimizes hyperparameters through a factorial design and grid search, and records feature importance.
+The `xgboost.py` script predicts quantitative minimum inhibitory concentration (MIC) values from genomic features using XGBoost regression. 
 
 ## Features
 
