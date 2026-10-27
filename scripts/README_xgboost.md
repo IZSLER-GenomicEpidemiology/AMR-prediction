@@ -22,15 +22,12 @@ The script processes all CSV files in the `data/` directory independently. Each 
 
 **Input requirements**
 
-- Both `sample_id` and `outcome` must be present.
-- `outcome` must contain numeric MIC values expressed on a log2 scale.
-- All columns other than `sample_id` and `outcome` are treated as genomic features and must contain numeric values.
-- Rows with missing values or non-numeric MIC values are excluded during preprocessing.
-- MIC values occurring only once in the dataset are excluded.
-- Each dataset must contain enough observations to support the train/test split and cross-validation settings.
-- `sample_id` is used for sample identification, not as a predictor.
-
-A one-unit difference on the log2 MIC scale corresponds to a twofold difference in MIC, equivalent to one twofold dilution step.
+- `outcome` must contain numeric MIC values on a log2 scale.
+- All columns except `sample_id` and `outcome` are treated as numeric genomic features.
+- Rows with missing values or non-numeric MIC values are excluded.
+- MIC values occurring only once are excluded.
+- `sample_id` is used for identification, not as a predictor.
+- Datasets must contain enough samples for train/test splitting and cross-validation.
 
 ## 2. Configurable Parameters
 
