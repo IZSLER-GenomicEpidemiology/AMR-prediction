@@ -7,7 +7,7 @@ This repository provides two complementary machine learning approaches to predic
 The repository includes two models, designed for different prediction goals:
 
 - **Random Forest:** predicts whether a microbial isolate is susceptible or resistant to a given antimicrobial.
-- **XGBoost:** predicts the minimum inhibitory concentration (MIC), providing a quantitative estimate of antimicrobial susceptibility.
+- **XGBoost:** predicts the minimum inhibitory concentration (MIC).
 
 ## Choosing the Right Approach
 
