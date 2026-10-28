@@ -36,7 +36,6 @@ The workflows use genomic data and antimicrobial resistance measurements to eval
 - **Set parameters carefully.** Consider available computational resources when configuring search settings. More extensive searches may improve model evaluation but increase computational costs.
 - **Assess performance across repeated runs.** Results can vary with train/test partitions and hyperparameter optimization, so consider this variability when evaluating model performance.
 - **Explore feature importance with care.** Features that repeatedly contribute to predictions may be useful candidates for further investigation, but feature importance alone does not demonstrate a causal relationship with antimicrobial resistance.
-- **Prepare datasets consistently.** Use appropriate genomic feature encoding and ensure that the outcome is compatible with the selected model.
 - **Keep your results organized.** The scripts write their output files to `results/`. Existing files with matching names may be overwritten when the scripts are run again, so preserve any results you want to retain.
 
 ## Repository Structure
