@@ -13,7 +13,6 @@ The repository includes two models, designed for different prediction goals:
 
 | | Random Forest | XGBoost |
 |---|---|---|
-| **Goal** | Classify isolates as susceptible or resistant | Predict quantitative MIC values |
 | **Prediction** | Susceptible (0) or resistant (1) | MIC on a log2 scale |
 | **Performance evaluation** | Accuracy, precision, recall, and F1-score | Accuracy within ±1 MIC dilution and R² |
 | **Hyperparameter optimization** | Randomized search with cross-validation | Factorial design and grid search |
